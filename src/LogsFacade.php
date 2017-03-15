@@ -1,5 +1,5 @@
 <?php
-namespace Webmachineltda\Logs;
+namespace Webmachine\Logs;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -1,8 +1,8 @@
 <?php
-namespace Webmachineltda\Logs;
+namespace Webmachine\Logs;
 
 use Illuminate\Support\Facades\Auth;
-use Webmachineltda\Logs\Models\Log;
+use Webmachine\Logs\Models\Log;
 
 class Logs {
     

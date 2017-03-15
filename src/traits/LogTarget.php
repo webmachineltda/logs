@@ -1,7 +1,7 @@
 <?php
-namespace Webmachineltda\Logs\Traits;
+namespace Webmachine\Logs\Traits;
 
-use Webmachineltda\Logs\LogsFacade as Logs;
+use Webmachine\Logs\LogsFacade as Logs;
 
 trait LogTarget {
     
@@ -21,7 +21,7 @@ trait LogTarget {
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */    
     public function logs() {
-        return $this->morphMany('Webmachineltda\Logs\Models\Log', 'target');
+        return $this->morphMany('Webmachine\Logs\Models\Log', 'target');
     }    
 }
 

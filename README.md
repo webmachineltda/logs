@@ -5,7 +5,7 @@
 Via Composer
 
 ``` bash
-$ composer require webmachineltda/logs
+$ composer require webmachine/logs
 ```
 
 Next, you must install the service provider and facade alias:
@@ -14,21 +14,21 @@ Next, you must install the service provider and facade alias:
 // config/app.php
 'providers' => [
     ...
-    Webmachineltda\Logs\LogsServiceProvider::class,
+    Webmachine\Logs\LogsServiceProvider::class,
 ];
 
 ...
 
 'aliases' => [
     ...
-    'Logs' => Webmachineltda\Logs\LogsFacade::class,
+    'Logs' => Webmachine\Logs\LogsFacade::class,
 ];
 ```
 
 Publish
 
 ``` bash
-$ php artisan vendor:publish --provider="Webmachineltda\Logs\LogsServiceProvider"
+$ php artisan vendor:publish --provider="Webmachine\Logs\LogsServiceProvider"
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ $ php artisan vendor:publish --provider="Webmachineltda\Logs\LogsServiceProvider
 Add doer trait to user model
 ``` php
 ...
-use Webmachineltda\Logs\Traits\LogDoer;
+use Webmachine\Logs\Traits\LogDoer;
 
 class User extends Model {
     use LogDoer;
@@ -47,7 +47,7 @@ class User extends Model {
 Add traits to target models
 ``` php
 ...
-use Webmachineltda\Logs\Traits\LogTarget;
+use Webmachine\Logs\Traits\LogTarget;
 
 class Foo extends Model {
     use LogTarget;
@@ -58,7 +58,7 @@ class Foo extends Model {
 You can add a custom log description:
 ``` php
 ...
-use Webmachineltda\Logs\LogsFacade as Logs;
+use Webmachine\Logs\LogsFacade as Logs;
 ...
 public function storage() {
     ...

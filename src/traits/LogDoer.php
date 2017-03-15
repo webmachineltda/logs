@@ -1,5 +1,5 @@
 <?php
-namespace Webmachineltda\Logs\Traits;
+namespace Webmachine\Logs\Traits;
 
 trait LogDoer {
     
@@ -9,7 +9,7 @@ trait LogDoer {
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function logs() {
-        return $this->morphMany('Webmachineltda\Logs\Models\Log', 'doer');
+        return $this->morphMany('Webmachine\Logs\Models\Log', 'doer');
     }    
 }
 

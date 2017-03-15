@@ -1,5 +1,5 @@
 {
-    "name": "webmachineltda/logs",
+    "name": "webmachine/logs",
     "description": "Logs",
     "type": "library",
     "license": "MIT",
@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Webmachineltda\\Logs\\": "src"
+            "Webmachine\\Logs\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Webmachineltda\\Logs\\": "tests"
+            "Webmachine\\Logs\\": "tests"
         }
     }  
 }
