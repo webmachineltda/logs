@@ -1,0 +1,29 @@
+{
+    "name": "webmachineltda/logs",
+    "description": "Logs",
+    "type": "library",
+    "license": "MIT",
+	"keywords": ["logs", "laravel"],
+    "authors": [
+        {
+            "name": "WebMachine",
+            "email": "contacto@webmachine.cl"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "illuminate/config": "~5.0",
+        "illuminate/database": "~5.0",
+        "illuminate/support": "~5.0"        
+    },
+    "autoload": {
+        "psr-4": {
+            "Webmachineltda\\Logs\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webmachineltda\\Logs\\": "tests"
+        }
+    }  
+}
