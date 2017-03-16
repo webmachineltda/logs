@@ -1,9 +1,9 @@
 {
     "name": "webmachine/logs",
-    "description": "Logs",
+    "description": "Logs for Laravel 5",
     "type": "library",
     "license": "MIT",
-	"keywords": ["logs", "laravel"],
+    "keywords": ["logs", "laravel"],
     "authors": [
         {
             "name": "WebMachine",
