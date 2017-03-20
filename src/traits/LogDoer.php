@@ -8,7 +8,7 @@ trait LogDoer {
      * 
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function logs() {
+    public function logsDoer() {
         return $this->morphMany('Webmachine\Logs\Models\Log', 'doer');
     }    
 }

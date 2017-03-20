@@ -6,6 +6,8 @@ use Webmachine\Logs\LogsFacade as Logs;
 trait LogTarget {
     
     public static function bootLogTarget() {
+        Logs::setBannedProperties(self::getBannedLogProperties());
+        
         static::created(function ($model) {
             Logs::created($model);
         });
@@ -15,6 +17,11 @@ trait LogTarget {
         });        
     }
     
+    protected static function getBannedLogProperties() {
+        return isset(static::$bannedLogProperties)? static::$bannedLogProperties : []; 
+    }
+
+
     /**
      * Agrega relación polimorfíca a modelo target
      * 

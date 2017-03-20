@@ -35,6 +35,13 @@ class Logs {
     protected $target;
     
     /**
+     * Banned Log Properties
+     * 
+     * @var array 
+     */
+    protected $bannedLogProperties;
+
+    /**
      * Log enabled
      * 
      * @var bool 
@@ -66,7 +73,8 @@ class Logs {
      */
     public function created($model) {
         $this->description = $this->getDescriptionOr('created');
-        $this->properties = ['attributes' => $model->toArray()];
+        $attributes = array_except($model->toArray(), $this->bannedLogProperties); // removes $bannedLogProperties
+        $this->properties = ['attributes' => $attributes];
         $this->target = $model;
         return $this->log();
     }
@@ -79,8 +87,9 @@ class Logs {
      */    
     public function updated($model) {
         $this->description = $this->getDescriptionOr('updated');
-        $properties['attributes'] = $model->getDirty();
-        $properties['old'] = array_intersect_key($model->getOriginal(), $model->getDirty());
+        $attributes = array_except($model->getDirty(), $this->bannedLogProperties); // removes $bannedLogProperties
+        $properties['attributes'] = $attributes;
+        $properties['old'] = array_intersect_key($model->getOriginal(), $attributes);
         $this->properties = $properties;
         $this->target = $model;     
         return $this->log();
@@ -92,24 +101,24 @@ class Logs {
      * @return bool
      */
     protected function log() {
-        if (!$this->logEnabled) return;       
+        if (!$this->logEnabled || empty($this->properties['attributes'])) return;       
         
         $log = new Log();
         if($this->doer != NULL) $log->doer()->associate($this->doer);
         if($this->target != NULL) $log->target()->associate($this->target);
         $log->description = $this->description;
-        $log->properties = $this->clean_properties();
+        $log->properties = $this->properties;
         return $log->save();        
     }
     
     /**
-     * Clean properties, unset timestamps
+     * set Banned Properties
      * 
-     * @return array
+     * @param array $banned_properties
+     * @return void
      */
-    protected function clean_properties() {
-        unset($this->properties['attributes']['created_at'], $this->properties['attributes']['updated_at'], $this->properties['old']['updated_at']);
-        return $this->properties;
+    public function setBannedProperties($banned_properties) {
+        $this->bannedLogProperties = array_merge($banned_properties, ['created_at', 'updated_at']);
     }
 
     /**
