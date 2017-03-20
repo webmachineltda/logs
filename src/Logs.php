@@ -76,6 +76,7 @@ class Logs {
         $attributes = array_except($model->toArray(), $this->bannedLogProperties); // removes $bannedLogProperties
         $this->properties = ['attributes' => $attributes];
         $this->target = $model;
+        if (empty($this->properties['attributes'])) return;
         return $this->log();
     }
 
@@ -91,9 +92,22 @@ class Logs {
         $properties['attributes'] = $attributes;
         $properties['old'] = array_intersect_key($model->getOriginal(), $attributes);
         $this->properties = $properties;
-        $this->target = $model;     
+        $this->target = $model;
+        if (empty($this->properties['attributes'])) return; 
         return $this->log();
     }
+    
+    /**
+     * Log on delete
+     * 
+     * @param Illuminate\Database\Eloquent\Model $model
+     * @return bool
+     */
+    public function deleted($model) {
+        $this->description = $this->getDescriptionOr('deleted');
+        $this->target = $model;
+        return $this->log();
+    }    
     
     /**
      * Save Log
@@ -101,7 +115,7 @@ class Logs {
      * @return bool
      */
     protected function log() {
-        if (!$this->logEnabled || empty($this->properties['attributes'])) return;       
+        if (!$this->logEnabled) return;       
         
         $log = new Log();
         if($this->doer != NULL) $log->doer()->associate($this->doer);

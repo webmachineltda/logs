@@ -14,6 +14,10 @@ trait LogTarget {
         
         static::updated(function ($model) {
             Logs::updated($model);
+        });
+
+        static::deleted(function ($model) {
+            Logs::deleted($model);
         });        
     }
     
