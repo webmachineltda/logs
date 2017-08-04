@@ -3,6 +3,8 @@ namespace Webmachine\Logs;
 
 use Illuminate\Support\Facades\Auth;
 use Webmachine\Logs\Models\Log;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Auth\Events\Authenticated;
 
 class Logs {
     
@@ -49,7 +51,12 @@ class Logs {
     protected $logEnabled;
     
     public function __construct() {
-        $this->doer = Auth::check()? Auth::user() : NULL;
+        
+        $this->doer = NULL;
+        Event::listen(Authenticated::class, function ($event) {
+            $this->doer = $event->user;
+        });
+        
         $this->properties = $this->target = NULL;
         $this->logEnabled = config('logs.enabled');
     }
