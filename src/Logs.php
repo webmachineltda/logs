@@ -80,7 +80,7 @@ class Logs {
      */
     public function created($model) {
         $this->description = $this->getDescriptionOr('created');
-        $attributes = array_except($model->toArray(), $this->bannedLogProperties); // removes $bannedLogProperties
+        $attributes = $this->array_except($model->toArray(), $this->bannedLogProperties); // removes $bannedLogProperties
         $this->properties = ['attributes' => $attributes];
         $this->target = $model;
         if (empty($this->properties['attributes'])) return;
@@ -95,7 +95,7 @@ class Logs {
      */    
     public function updated($model) {
         $this->description = $this->getDescriptionOr('updated');
-        $attributes = array_except($model->getDirty(), $this->bannedLogProperties); // removes $bannedLogProperties
+        $attributes = $this->array_except($model->getDirty(), $this->bannedLogProperties); // removes $bannedLogProperties
         $properties['attributes'] = $attributes;
         $properties['old'] = array_intersect_key($model->getOriginal(), $attributes);
         $this->properties = $properties;
@@ -159,5 +159,16 @@ class Logs {
      */
     protected function getDescriptionOr($default_description) {
         return $this->description?: $default_description;
+    }
+
+    /**
+     * Get array without banned properties
+     * 
+     * @param array $array
+     * @param array $banned_properties
+     * @return array
+     */
+    protected function array_except($array, $banned_properties) {
+        return array_diff_key($array, array_flip((array) $banned_properties));
     }
 }
